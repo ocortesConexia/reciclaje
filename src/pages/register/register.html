@@ -7,7 +7,7 @@
       Ingresar
     </h3>
     <div class="spacer" style="width:300px;height:15px;" id="login-spacer6"></div>
-    <form [formGroup]="loginForm" (ngSubmit)="login()">
+    <form [formGroup]="registerForm" (ngSubmit)="register()">
       <ion-item>
         <ion-label>Correo</ion-label>
         <ion-input type="text" formControlName="email"></ion-input>
@@ -16,9 +16,16 @@
         <ion-label>Contraseña</ion-label>
         <ion-input type="password" formControlName="password"></ion-input>
       </ion-item>
-      <button ion-button type="submit" [disabled]="!loginForm.valid">Ingresa</button>
+      <ion-item>
+        <ion-label>Confirmar contraseña</ion-label>
+        <ion-input type="password" formControlName="passwordConfirmation"></ion-input>
+      </ion-item>
+      <button ion-button type="submit" 
+      [disabled]="!registerForm.valid || 
+                  !registerForm.value.password!='' ||
+                  !(registerForm.value.password==registerForm.value.passwordConfirmation)">Registrar</button>
     </form>
-    <button ion-button (click)="Register()">Registrarse</button>
+    <button ion-button (click)="dismiss()">Regresar</button>
 
     <!--button id="login-button12" class="buttonFacebook" ion-button  block icon-left on-click="facebook()">
       <ion-icon name="logo-facebook"></ion-icon>

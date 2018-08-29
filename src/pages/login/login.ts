@@ -5,34 +5,52 @@ import { LoadingProvider } from '../../Services/loading/loading';
 import { GameService } from '../../Services/game.service';
 import { AlertsProvider } from '../../Services/alerts/alerts';
 import { FirebaseAuthService } from '../../Services/auth/firebase';
-
+import { ModalController } from 'ionic-angular';
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { RegisterPage } from '../register/register';
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html'
 })
 export class LoginPage {
-  // this tells the tabs component which Pages
-  // should be each tab's root Page
-  constructor(public navCtrl: NavController,public loading:LoadingProvider,
+  private loginForm : FormGroup;
+
+  constructor(public navCtrl: NavController,
+              public loading:LoadingProvider,
               public game:GameService,
               public alerts:AlertsProvider,
-              private authService:FirebaseAuthService) {
-  this.alerts.GameLevels(level=>{
-    this.game.Play(level);
-  });
-   
-   
-  
-  }
-  goToRecicla(params){
-    if (!params) params = {};
-    this.navCtrl.setRoot(TabsControllerPage);
+              private authService:FirebaseAuthService,
+              private formBuilder: FormBuilder,
+              private modalCtrl: ModalController) {
+              this.loginForm = this.formBuilder.group({
+                  email: ['', [Validators.required,Validators.email]],
+                  password: ['',[Validators.required,Validators.minLength(6)]],
+                });
+
+           }
+
+  Register(){
+    
+      let registerModal = this.modalCtrl.create(RegisterPage);
+      registerModal.present();
+      registerModal.onDidDismiss(data=>{
+            console.log(data);
+            this.navCtrl.setRoot(TabsControllerPage,{
+              userName:data.email.split("@")[1]
+            }); 
+      });
+    
   }
 
-  facebook(){
-    this.authService.loginUser("ocortes@conexia.com","123456").then(success=>{
-            console.log("asdasdsadasdsa",success);
-    }).catch(e=>console.error(e))
+  login(){
+    this.authService.loginUser(this.loginForm.value.email,this.loginForm.value.password)
+    .then(_=>{
+     this.navCtrl.setRoot(TabsControllerPage,{
+      userName:this.loginForm.value.email.split("@")[1]
+    });
+    }).catch(_=>{
+       this.alerts.AlertOneButton("Error","Correo o contraseñas incorrectos.");
+    });
   }
 
  

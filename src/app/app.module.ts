@@ -29,6 +29,7 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { firebaseConfig } from '../config';
 import { FirebaseAuthService } from '../Services/auth/firebase';
+import { RegisterPage } from '../pages/register/register';
 
 
 
@@ -48,7 +49,8 @@ import { FirebaseAuthService } from '../Services/auth/firebase';
     ComentariosPage,
     LoginPage,
     ProgressBarComponent,
-    GameComponent
+    GameComponent,
+    RegisterPage
   ],
   imports: [
     BrowserModule,
@@ -70,7 +72,8 @@ import { FirebaseAuthService } from '../Services/auth/firebase';
     PlSticoPage,
     ComentariosPage,
     LoginPage,
-    GameComponent
+    GameComponent,
+    RegisterPage
   ],
   providers: [
     StatusBar,

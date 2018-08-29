@@ -18,7 +18,7 @@ export class TabsControllerPage {
   constructor(public navCtrl: NavController,
               public game:GameService) {
 
-                this.game.Play(2);
+               // this.game.Play(2);
   }
 
   

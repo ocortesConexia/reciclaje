@@ -5,6 +5,7 @@ import { OrdinariosPage } from '../ordinarios/ordinarios';
 import { PapelCartonPage } from '../papel-carton/papel-carton';
 import { PlSticoPage } from '../pl-stico/pl-stico';
 import { GameService } from '../../Services/game.service';
+import { AlertsProvider } from '../../Services/alerts/alerts';
 
 @Component({
   selector: 'page-recicla',
@@ -14,10 +15,13 @@ export class ReciclaPage {
   // this tells the tabs component which Pages
   // should be each tab's root Page
   constructor(public navCtrl: NavController,
-              public game:GameService) {
+              public game:GameService,
+              private alerts:AlertsProvider) {
   }
   playGame(params){
-    this.game.Play(1);
+    this.alerts.GameLevels(level=>{
+      this.game.Play(level);
+    })
   }
   goToInformaciN(params){
     if (!params) params = {};
