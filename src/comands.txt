@@ -3,3 +3,6 @@ npm install firebase angularfire2 --save
 https://reviblog.net/2017/08/05/tutorial-de-ionic-firebase-parte-1-autenticacion-con-correo-y-contrasena/
 
 https://medium.com/appseed-io/integrating-firebase-password-and-google-authentication-into-your-ionic-3-app-2421cee32db9
+
+
+https://www.novaseo.com.co/Lecontamosque/Manejoderesiduos

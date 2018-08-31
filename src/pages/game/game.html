@@ -13,10 +13,9 @@
       <img (click)="Answer(3)" src="assets/img/trashPlastico.png" style="width:30%;height:auto;margin-left:auto;margin-right:auto;" />
      
   </div>
-  <div *ngIf="gameLevel==3">
+  <div *ngIf="gameLevel>1">
       <img (click)="Answer(4)" src="assets/img/trashOrdinarios.png" style="width:30%;height:auto;margin-left:auto;margin-right:auto;" />
-      <img (click)="Answer(5)" src="assets/img/trashCarton.png" style="width:30%;height:auto;margin-left:auto;margin-right:auto;" />
-      <img (click)="Answer(6)" src="assets/img/trashPlastico.png" style="width:30%;height:auto;margin-left:auto;margin-right:auto;" />
+      <img *ngIf="gameLevel==3" (click)="Answer(5)" src="assets/img/trashCarton.png" style="width:30%;height:auto;margin-left:auto;margin-right:auto;" />
      
   </div>
   

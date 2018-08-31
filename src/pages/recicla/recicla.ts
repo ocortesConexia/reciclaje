@@ -23,17 +23,9 @@ export class ReciclaPage {
       this.game.Play(level);
     })
   }
-  goToInformaciN(params){
-    if (!params) params = {};
+  goToInformaciN(){
+    
     this.navCtrl.push(InformaciNPage);
-  }goToOrdinarios(params){
-    if (!params) params = {};
-    this.navCtrl.push(OrdinariosPage);
-  }goToPapelCarton(params){
-    if (!params) params = {};
-    this.navCtrl.push(PapelCartonPage);
-  }goToPlStico(params){
-    if (!params) params = {};
-    this.navCtrl.push(PlSticoPage);
   }
+ 
 }

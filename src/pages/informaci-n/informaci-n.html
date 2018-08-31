@@ -1,37 +1,36 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Información
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
 <ion-content padding id="page6">
+    <div id="informaciN-markdown5" class="show-list-numbers-and-dots">
+        <p style="color:#000000;text-align: justify;">
+          <strong>
+            Información general:
+          </strong><br>
+          El reciclaje es un gesto muy útil y sencillo que el medio ambiente agradece de varias 
+          formas. La necesidad de nuevas materias primas para crear productos y todo su proceso 
+          de extracción, transporte, elaboración y gasto energético disminuye al reaprovechar los 
+          residuos reciclados. Asimismo, se evita que estos envases acaben en vertederos, cada vez 
+          más saturados y con problemas de impacto ambiental. Por ello, el reciclado también 
+          contribuye a reducir las emisiones de gases de efecto invernadero.
+        </p>
+      </div>
   <ion-list id="informaciN-list1">
-    <ion-item color="none" on-click="goToOrdinarios()" id="informaciN-list-item2">
+    <ion-item *ngFor="let recicleItem of recicleItems;let i = index;" color="none" on-click="goToInfo(i)" id="informaciN-list-item2">
       <ion-thumbnail item-left>
-        <img src="assets/img/M6CJQp7QVKNBNmD5E8wG_reciclajeicono1.PNG" />
+        <img [src]="recicleItem.img" />
       </ion-thumbnail>
       <h2>
-        Ordinarios
+        {{recicleItem.name}}
       </h2>
     </ion-item>
-    <ion-item color="none" on-click="goToPapelCarton()" id="informaciN-list-item3">
-      <ion-thumbnail item-left>
-        <img src="assets/img/1KRE9DF6RkSDajs0Vxd5_reciclajeicono2.PNG" />
-      </ion-thumbnail>
-      <h2>
-        Papel Carton
-      </h2>
-    </ion-item>
-    <ion-item color="none" on-click="goToPlStico()" id="informaciN-list-item4">
-      <ion-thumbnail item-left>
-        <img src="assets/img/gvND9hycRAGzomvSLP9a_reciclajeicono3.PNG" />
-      </ion-thumbnail>
-      <h2>
-        Plàstico
-      </h2>
-    </ion-item>
+   
+   
   </ion-list>
-  <div id="informaciN-markdown5" class="show-list-numbers-and-dots">
-    <p style="color:#000000;">
-      <strong>
-        Informaciòn general:
-      </strong>
-      Manejo de residuos, reciclaje, separación, ecología, papel, cartón, ordinarios, orgánicos, aluminio, vidrio, peligrosos, Rubbermaid, Estra, Colempaques, interés, Novaseo. Materiales Reciclabes: ALUMINIO: Nos permite ahorrar hasta 95% de la energía para
-      extraer bauxita, proceso altamente contaminante y peligroso.
-    </p>
-  </div>
+ 
 </ion-content>

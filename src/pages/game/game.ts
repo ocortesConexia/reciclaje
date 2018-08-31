@@ -20,22 +20,75 @@ export class GameComponent {
     trashType:1,
     trashImage:"assets/img/GvaiTdc0R9Oc1tOc2i6G_lata.jpg"
   }
-  gameTrashArray=[{
+  gameTrashArrayEasy=[
+    {
     trashType:1,
-    trashImage:"assets/img/lata.jpg"
+    trashImage:"assets/img/ordinarios1.jpg"
+  }, {
+    trashType:1,
+    trashImage:"assets/img/ordinarios2.jpg"
+  }, {
+    trashType:1,
+    trashImage:"assets/img/ordinarios3.jpg"
+  }, {
+    trashType:1,
+    trashImage:"assets/img/ordinarios4.jpg"
+  }, {
+    trashType:1,
+    trashImage:"assets/img/ordinarios5.jpg"
   },{
     trashType:2,
-    trashImage:"assets/img/servilletaLimpia.jpg"
+    trashImage:"assets/img/papel1.jpg"
+  },{
+    trashType:2,
+    trashImage:"assets/img/papel2.jpg"
+  },{
+    trashType:2,
+    trashImage:"assets/img/papel3.jpg"
+  },{
+    trashType:2,
+    trashImage:"assets/img/papel4.jpg"
   },{
     trashType:3,
-    trashImage:"assets/img/desechosComida.jpg"
+    trashImage:"assets/img/plastico1.jpg"
   },{
-    trashType:1,
-    trashImage:"assets/img/servilletaSucia.jpg"
-  },{
-    trashType:1,
-    trashImage:"assets/img/periodico.jpg"
+    trashType:3,
+    trashImage:"assets/img/plastico2.jpg"
   }];
+  gameTrashArrayMedium=[
+    {
+      trashType:4,
+      trashImage:"assets/img/metales1.jpg"
+    },{
+      trashType:4,
+      trashImage:"assets/img/metales2.jpg"
+    },{
+      trashType:4,
+      trashImage:"assets/img/metales3.jpg"
+    },{
+      trashType:4,
+      trashImage:"assets/img/metales4.jpg"
+    },{
+      trashType:4,
+      trashImage:"assets/img/metales5.jpg"
+    },{
+      trashType:4,
+      trashImage:"assets/img/metales6.jpeg"
+    },{
+      trashType:4,
+      trashImage:"assets/img/metales7.jpg"
+    },{
+      trashType:4,
+      trashImage:"assets/img/metales8.jpg"
+    }
+  ];
+  gameTrashArrayHard=[{
+    trashType:5,
+    trashImage:"assets/img/vidrio1.jpg"
+  },{trashType:5,
+  trashImage:"assets/img/vidrio2.jpg"
+}];
+  gameTrashArray=[];
   gameTime:number=0;
   gameTimeInterval=null;
   gameLevel:number=1;
@@ -46,9 +99,22 @@ export class GameComponent {
               public navParams:NavParams) {
               this.gameLevel=  this.navParams.get("level");
 
-              console.log("Level "+this.gameLevel);
               
-                this.gameTrashArray=  this.shuffleArray(this.gameTrashArray);
+              switch(this.gameLevel){
+                case 1:
+                this.gameTrashArray=  this.shuffleArray(this.gameTrashArrayEasy);
+                break;
+                case 2: 
+                this.gameCount=10;
+                this.gameTrashArray=  this.shuffleArray(this.gameTrashArrayMedium.concat(this.gameTrashArrayEasy));
+                break;
+                case 3:
+                this.gameCount=15;
+                this.gameTrashArray=  this.shuffleArray(this.gameTrashArrayHard.concat(this.gameTrashArrayEasy).concat(this.gameTrashArrayMedium));
+                break;
+              }
+                
+                
          
   }
 
@@ -71,7 +137,7 @@ export class GameComponent {
       console.log(this.gameTime);
       this.gameTime=this.gameTime/1000;
          this.alerts.AlertOneButton("Juego terminado",
-        "Puntos Aciertos: "+this.points*100+"<br>Puntos tiempo: "+this.gameTime
+        "Puntos Aciertos: "+this.points*100+"<br>Tiempo: "+this.gameTime
         ,"Aceptar",()=>{
           this.viewCrt.dismiss();
         });

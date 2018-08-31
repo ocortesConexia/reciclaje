@@ -23,8 +23,8 @@ export class LoginPage {
               private formBuilder: FormBuilder,
               private modalCtrl: ModalController) {
               this.loginForm = this.formBuilder.group({
-                  email: ['', [Validators.required,Validators.email]],
-                  password: ['',[Validators.required,Validators.minLength(6)]],
+                  email: ['ocortes@conexia.com', [Validators.required,Validators.email]],
+                  password: ['123456',[Validators.required,Validators.minLength(6)]],
                 });
 
            }
