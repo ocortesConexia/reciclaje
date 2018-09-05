@@ -6,7 +6,20 @@
   </ion-navbar>
 </ion-header>
 <ion-content padding id="page4">
- 
+    <ion-list>
+        Prueba de firebase
+          <ion-item-sliding *ngFor='let task of tasks | async'>
+            <ion-item>
+              <ion-label>{{ task.title }}</ion-label>
+              <ion-checkbox (ionChange)="updateTask( task )" [checked]="task.done"></ion-checkbox>
+            </ion-item>
+             <ion-item-options>
+              <button ion-button danger (click)="removeTask( task )">
+                Delete
+              </button>
+             </ion-item-options>
+          </ion-item-sliding>
+        </ion-list>
   <ion-list id="quejas-list2">
     <ion-item color="none" id="quejas-list-item5">
       <ion-avatar item-left>

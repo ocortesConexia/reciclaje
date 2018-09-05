@@ -30,6 +30,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { firebaseConfig } from '../config';
 import { FirebaseAuthService } from '../Services/auth/firebase';
 import { RegisterPage } from '../pages/register/register';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
 
 
 
@@ -55,7 +56,8 @@ import { RegisterPage } from '../pages/register/register';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    AngularFireModule.initializeApp(firebaseConfig.fire)
+    AngularFireModule.initializeApp(firebaseConfig.fire,"reciclaje"),
+    AngularFireDatabaseModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -83,6 +85,7 @@ import { RegisterPage } from '../pages/register/register';
     AlertsProvider,
     AngularFireAuth,
     FirebaseAuthService,
+    
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
