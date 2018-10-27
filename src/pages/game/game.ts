@@ -2,18 +2,20 @@ import { Component } from '@angular/core';
 import { NavController, ViewController, NavParams } from 'ionic-angular';
 import { LoadingProvider } from '../../Services/loading/loading';
 import { AlertsProvider } from '../../Services/alerts/alerts';
+import { FirebaseService } from '../../Services/auth/firebase';
 
 @Component({
   selector: 'page-game',
   templateUrl: 'game.html'
 })
 export class GameComponent {
-  // this tells the tabs component which Pages
-  // should be each tab's root Page
+
   gameCount:number=5;
   timeCount:number=10;
   gameInterval:any;
   points:number=0;
+  fail:boolean=false;
+  success:boolean=false;
   buttonDisabled:boolean=false;
   showImage:boolean=false;
   trash:any={
@@ -96,7 +98,8 @@ export class GameComponent {
               public viewCrt: ViewController,
               public loader:LoadingProvider,
               public alerts:AlertsProvider,
-              public navParams:NavParams) {
+              public navParams:NavParams,
+              private firebase:FirebaseService) {
               this.gameLevel=  this.navParams.get("level");
 
               
@@ -119,44 +122,63 @@ export class GameComponent {
   }
 
   ionViewDidLoad(){
+
     this.loader.BeginPlay(_=>{
+
        this.gameTimeInterval=setInterval(()=>{
+
           this.gameTime+=10;
+
        },10);
        this.GamePlay();
+
     });
 
   }
 
   GamePlay(){
+
     this.timeCount=10;
     this.gameCount--;
     if(this.gameCount==-1){
+
       clearInterval(this.gameTimeInterval);
       this.gameTime-=10;
       console.log(this.gameTime);
       this.gameTime=this.gameTime/1000;
-         this.alerts.AlertOneButton("Juego terminado",
+      let bestGame="";
+      if(this.points*100>Number(this.firebase.userData.bestGamePoints) ||
+       (this.points*100==Number(this.firebase.userData.bestGamePoints) && this.gameTime<(Number(this.firebase.userData.bestGameTime)))){
+         bestGame="Nuevo Record!";
+         this.firebase.updatePoints(this.points*100,
+          this.gameTime,
+          _=>{this.alerts.AlertOneButton("Error","Lo sentimos no pudimos actualizar tu puntaje")});
+        }
+         this.alerts.AlertOneButton("Juego terminado "+bestGame,
         "Puntos Aciertos: "+this.points*100+"<br>Tiempo: "+this.gameTime
-        ,"Aceptar",()=>{
+        ,"Aceptar",
+        _=>{
+           
           this.viewCrt.dismiss();
+
         });
          
     }else{
 
-    
-    
     this.trash=this.gameTrashArray[this.gameCount];
     console.log(this.trash);
     this.showImage=true;
     this.buttonDisabled=false;
+
     this.gameInterval= setInterval(()=>{
+
       this.timeCount--;
       if(this.timeCount==0){
+
          this.Answer(0);
-       //  alert("Fallo!");
-        // this.GamePlay();
+
       }
+
     },1000);
   }
      
@@ -164,16 +186,26 @@ export class GameComponent {
 
   Answer(trashId){
     if(!this.buttonDisabled){
+
       this.buttonDisabled=true;
+
       clearInterval(this.gameInterval);
+
       if(this.trash.trashType==trashId){
+
         this.points++;
+        this.success=true;
+      }else{
+         this.fail=true;
       }
     
       this.gameInterval=null;
       setTimeout(()=>{
+
         this.GamePlay();
-      },500);
+        this.success=false;
+        this.fail=false;
+      },2000);
     }
     
    
@@ -183,12 +215,16 @@ export class GameComponent {
  
 
    shuffleArray(array) {
+
     for (var i = array.length - 1; i > 0; i--) {
+
         var j = Math.floor(Math.random() * (i + 1));
         var temp = array[i];
         array[i] = array[j];
         array[j] = temp;
+
     }
+
     return array;
 }
   

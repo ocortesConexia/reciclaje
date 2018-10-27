@@ -6,8 +6,8 @@
   </ion-navbar>
 </ion-header>
 <ion-content padding id="page7">
-  <img src="assets/img/xV1V7y4oQtiVU2WWn5Xf_Basuraenlascalles.jpg" style="display:block;width:100%;height:auto;margin-left:auto;margin-right:auto;" />
-  <button (click)="upload()" icon-left class="buttonRetakePhoto" id="subirIncidente-button5" ion-button color="balanced" block>
+  <img [src]="picture" style="display:block;width:100%;height:auto;margin-left:auto;margin-right:auto;" />
+  <button  icon-left class="buttonRetakePhoto" id="subirIncidente-button5" ion-button color="balanced" block (click)="takePicture()">
       <ion-icon name="md-reverse-camera"></ion-icon>
     Volver a tomar la foto
   </button>
@@ -17,9 +17,9 @@
   <form id="subirIncidente-form1">
     <ion-item id="subirIncidente-textarea1">
       <ion-label></ion-label>
-      <ion-textarea placeholder="Escribe un comentario de màximo 500 caràcteres"></ion-textarea>
+      <ion-textarea [(ngModel)]="notes" name="notes" placeholder="Escribe un comentario de máximo 500 carácteres"></ion-textarea>
     </ion-item>
-    <button icon-left class="buttonUpload" id="subirIncidente-button6" ion-button color="balanced" block>
+    <button icon-left class="buttonUpload" id="subirIncidente-button6" ion-button color="balanced" block (click)="upload()">
         <ion-icon name="md-cloud-upload"></ion-icon>
       Subir incidente
     </button>

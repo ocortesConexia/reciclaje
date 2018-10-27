@@ -1,3 +1,5 @@
+import { CameraProvider } from './../Services/camera/camera';
+import { Camera } from '@ionic-native/camera';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
@@ -14,21 +16,16 @@ import { PapelCartonPage } from '../pages/papel-carton/papel-carton';
 import { PlSticoPage } from '../pages/pl-stico/pl-stico';
 import { ComentariosPage } from '../pages/comentarios/comentarios';
 import { LoginPage } from '../pages/login/login';
-
-
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { GameService } from '../Services/game.service';
 import { ProgressBarComponent } from '../components/progress-bar/progress-bar';
 import { LoadingProvider } from '../Services/loading/loading';
 import { AlertsProvider } from '../Services/alerts/alerts';
-//import { CameraProvider } from '../Services/camera/camera';
-import { DatabaseProvider } from '../Services/database/database';
-
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { firebaseConfig } from '../config';
-import { FirebaseAuthService } from '../Services/auth/firebase';
+import { FirebaseService } from '../Services/auth/firebase';
 import { RegisterPage } from '../pages/register/register';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 
@@ -84,8 +81,9 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
     LoadingProvider,
     AlertsProvider,
     AngularFireAuth,
-    FirebaseAuthService,
-    
+    FirebaseService,
+    CameraProvider,
+    Camera,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

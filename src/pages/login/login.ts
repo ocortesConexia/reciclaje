@@ -4,7 +4,7 @@ import { TabsControllerPage } from '../tabs-controller/tabs-controller';
 import { LoadingProvider } from '../../Services/loading/loading';
 import { GameService } from '../../Services/game.service';
 import { AlertsProvider } from '../../Services/alerts/alerts';
-import { FirebaseAuthService } from '../../Services/auth/firebase';
+import { FirebaseService } from '../../Services/auth/firebase';
 import { ModalController } from 'ionic-angular';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { RegisterPage } from '../register/register';
@@ -13,45 +13,55 @@ import { RegisterPage } from '../register/register';
   templateUrl: 'login.html'
 })
 export class LoginPage {
-  private loginForm : FormGroup;
+  private loginForm: FormGroup;
 
-  constructor(public navCtrl: NavController,
-              public loading:LoadingProvider,
-              public game:GameService,
-              public alerts:AlertsProvider,
-              private authService:FirebaseAuthService,
-              private formBuilder: FormBuilder,
-              private modalCtrl: ModalController) {
-              this.loginForm = this.formBuilder.group({
-                  email: ['ocortes@conexia.com', [Validators.required,Validators.email]],
-                  password: ['123456',[Validators.required,Validators.minLength(6)]],
-                });
+  constructor(
+    public navCtrl: NavController,
+    public loading: LoadingProvider,
+    public game: GameService,
+    public alerts: AlertsProvider,
+    private authService: FirebaseService,
+    private formBuilder: FormBuilder,
+    private modalCtrl: ModalController
+    ) {
 
-           }
+    this.loginForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+    });
 
-  Register(){
-    
-      let registerModal = this.modalCtrl.create(RegisterPage);
-      registerModal.present();
-      registerModal.onDidDismiss(data=>{
-            console.log(data);
-            this.navCtrl.setRoot(TabsControllerPage,{
-              userName:data.email.split("@")[1]
-            }); 
+  }
+
+  Register() {
+
+    let registerModal = this.modalCtrl.create(RegisterPage);
+    registerModal.present();
+    registerModal.onDidDismiss(didRegister => {
+      if(didRegister){
+        this.navCtrl.setRoot(TabsControllerPage);
+      }
+
+
+    });
+
+  }
+
+  login() {
+
+    this.authService.loginUser(this.loginForm.value.email, this.loginForm.value.password)
+      .then(_ => {
+
+        this.navCtrl.setRoot(TabsControllerPage);
+
+      }).catch(error => {
+
+        console.error(error);
+        if(error.code=="auth/user-not-found")this.alerts.AlertOneButton("Error", "Correo no se encuentra registrado.");
+        else this.alerts.AlertOneButton("Error", "Contraseña incorrecta.");
+
       });
-    
+
   }
 
-  login(){
-    this.authService.loginUser(this.loginForm.value.email,this.loginForm.value.password)
-    .then(_=>{
-     this.navCtrl.setRoot(TabsControllerPage,{
-      userName:this.loginForm.value.email.split("@")[1]
-    });
-    }).catch(_=>{
-       this.alerts.AlertOneButton("Error","Correo o contraseñas incorrectos.");
-    });
-  }
 
- 
 }

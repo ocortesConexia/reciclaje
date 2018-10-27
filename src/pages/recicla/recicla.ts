@@ -1,31 +1,39 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { InformaciNPage } from '../informaci-n/informaci-n';
-import { OrdinariosPage } from '../ordinarios/ordinarios';
-import { PapelCartonPage } from '../papel-carton/papel-carton';
-import { PlSticoPage } from '../pl-stico/pl-stico';
 import { GameService } from '../../Services/game.service';
 import { AlertsProvider } from '../../Services/alerts/alerts';
+import { FirebaseService } from '../../Services/auth/firebase';
+import { userInterface } from '../../Interfaces/user';
 
 @Component({
   selector: 'page-recicla',
   templateUrl: 'recicla.html'
 })
 export class ReciclaPage {
-  // this tells the tabs component which Pages
-  // should be each tab's root Page
+
+  userData:userInterface;
+ 
   constructor(public navCtrl: NavController,
               public game:GameService,
-              private alerts:AlertsProvider) {
+              private alerts:AlertsProvider,
+              private firebase:FirebaseService) {
+                
+                this.userData=this.firebase.userData;
   }
-  playGame(params){
-    this.alerts.GameLevels(level=>{
+
+  playGame(){
+    
+   this.alerts.GameLevels(level=>{
       this.game.Play(level);
-    })
+    });
+
   }
+
   goToInformaciN(){
     
     this.navCtrl.push(InformaciNPage);
+
   }
  
 }

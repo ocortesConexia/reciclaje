@@ -1,29 +1,29 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
- 
+
   Puntaje:{{points}}
     </ion-title>
   </ion-navbar>
 </ion-header>
-<ion-content padding id="page5">
-  <div>
-      <img (click)="Answer(1)" src="assets/img/trashOrdinarios.png" style="width:30%;height:auto;margin-left:auto;margin-right:auto;" />
-      <img (click)="Answer(2)" src="assets/img/trashCarton.png" style="width:30%;height:auto;margin-left:auto;margin-right:auto;" />
-      <img (click)="Answer(3)" src="assets/img/trashPlastico.png" style="width:30%;height:auto;margin-left:auto;margin-right:auto;" />
-     
+<ion-content padding id="page5" class="items">
+  <div >
+      <img (click)="Answer(1)" src="assets/img/ordinarios.png" style="width:100px;height:140px;margin-left:auto;margin-right:auto;" />
+      <img (click)="Answer(2)" src="assets/img/papelcarton.png" style="width:100px;height:140px;margin-left:auto;margin-right:auto;" />
+      <img (click)="Answer(3)" src="assets/img/plastico.png" style="width:100px;height:140px;margin-left:auto;margin-right:auto;" />
+
   </div>
-  <div *ngIf="gameLevel>1">
-      <img (click)="Answer(4)" src="assets/img/trashOrdinarios.png" style="width:30%;height:auto;margin-left:auto;margin-right:auto;" />
-      <img *ngIf="gameLevel==3" (click)="Answer(5)" src="assets/img/trashCarton.png" style="width:30%;height:auto;margin-left:auto;margin-right:auto;" />
-     
+  <div *ngIf="gameLevel>1" class="items">
+      <img (click)="Answer(4)" src="assets/img/metales.png" style="width:100px;height:140px;margin-left:auto;margin-right:auto;" />
+      <img *ngIf="gameLevel==3" (click)="Answer(5)" src="assets/img/vidrio.png" style="width:100px;height:140px;margin-left:auto;margin-right:auto;" />
+
   </div>
-  
+
   <h4  style="color:#000000;">
     Toca el ícono de reciclaje a cuál corresponda.
   </h4>
-  <progress-bar [time]="timeCount"></progress-bar>
+  <progress-bar [time]="timeCount" [ngClass]="{'darkBackground':timeCount<=6,'redBackground':timeCount<=3}"></progress-bar>
   <div class="spacer" style="width:300px;height:26px;" id="puntaje10Puntos-spacer2"></div>
- 
-  <img src="{{trash.trashImage}}" *ngIf="showImage" style="display:block;width:auto;height:100px;margin-left:auto;margin-right:auto;" />
+
+  <img [ngClass]="{'shake':fail==true,'fadeOutUp':success==true}" class="animated" src="{{trash.trashImage}}" *ngIf="showImage" style="display:block;width:auto;height:100px;margin-left:auto;margin-right:auto;" />
 </ion-content>

@@ -1,5 +1,17 @@
 page-register {
- 
+  .item-input .label-md, .item-select .label-md, .item-datetime .label-md {
+    color: #33a397;
+}
+.button-back{
+  background-color: #33a397!important;
+}
 
-    
+.button-register{
+  background-color: #76e7af!important;
+}
+
+.backgroundLogin{
+  background: linear-gradient(to bottom right, #76e7af, #33a397);
+}
+
 }

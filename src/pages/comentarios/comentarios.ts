@@ -16,15 +16,6 @@ export class ComentariosPage {
   ) {
   }
   ionViewDidEnter(){
-    this.tasksRef = this.database.list('tasks');
-    this.tasks = this.tasksRef.snapshotChanges()
-    .map(changes => {
-      return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
-    });
-    this.tasksRef.push({
-      title: "Nueva tarea",
-      done: false
-    });
   }
  
   
